@@ -1,5 +1,6 @@
 from datetime import datetime, date
 import re
+import unicodedata
 
 
 class TaskHtmlizer(object):
@@ -16,6 +17,13 @@ class TaskHtmlizer(object):
         text = task.text
         priority = task.priority
 
+        #check whether we have to add rtl-support (hack, evaluate locale instead!)
+        rtlChar = ""
+        for ch in text:
+            if unicodedata.bidirectional(ch) in ('R', 'AL'):
+                rtlChar = "\u200F"
+                break
+
         if task.is_complete:
             text = '<s>%s</s>' % text.replace('x ', '', 1)
             # when the task is complete, the Task object has no priority. We find the original priority from the text
@@ -25,10 +33,10 @@ class TaskHtmlizer(object):
         for project in task.projects:
             text = text.replace('+' + project, self._htmlizeProject(project))
         if priority is not None:
-            text = text.replace('(%s) ' % priority, self._htmlizePriority(priority))
+            text = text.replace('(%s) ' % priority, rtlChar + self._htmlizePriority(priority) + rtlChar)
         else:
             # add 3 spaces, so tasks get evenly aligned when there's no priority
-            text = '<tt>&nbsp;&nbsp;&nbsp;</tt>' + text
+            text = '<tt>&nbsp;&nbsp;&nbsp;</tt>' + rtlChar + text
         if task.due is not None:
             text = text.replace('due:%s' % task.due, self._htmlizeDueDate(task.due))
         if task.threshold is not None:
