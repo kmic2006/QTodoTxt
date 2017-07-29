@@ -157,7 +157,7 @@ class FiltersTreeView(QtGui.QWidget):
                                                        CompleteTasksFilter(),
                                                        getIcon('FilterComplete.png'))
         tree.addTopLevelItems([
-            self._allTasksItem,
+            #self._allTasksItem,
             self._incompleteTasksItem,
             self._uncategorizedTasksItem,
             self._dueItem,
