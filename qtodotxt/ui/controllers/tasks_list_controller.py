@@ -10,7 +10,7 @@ from datetime import date
 
 class TasksListController(QtCore.QObject):
 
-    taskModified = QtCore.Signal(tasklib.Task)
+    taskModified = QtCore.Signal()
     taskCreated = QtCore.Signal(tasklib.Task)
     taskArchived = QtCore.Signal(tasklib.Task)
     taskDeleted = QtCore.Signal(tasklib.Task)
@@ -79,7 +79,7 @@ class TasksListController(QtCore.QObject):
         if int(QtCore.QSettings().value("auto_archive", 1)):
             self.taskArchived.emit(task)
         else:
-            self.taskModified.emit(task)
+            self.taskModified.emit()
 
     def _completeSelectedTasks(self):
         tasks = self._view.getSelectedTasks()
@@ -115,7 +115,7 @@ class TasksListController(QtCore.QObject):
             for task in tasks:
                 task.decreasePriority()
                 self._view.updateTask(task)
-                self.taskModified.emit(task)
+            self.taskModified.emit()
 
     def _increasePriority(self):
         tasks = self._view.getSelectedTasks()
@@ -123,7 +123,7 @@ class TasksListController(QtCore.QObject):
             for task in tasks:
                 task.increasePriority()
                 self._view.updateTask(task)
-                self.taskModified.emit(task)
+            self.taskModified.emit()
 
     def showTasks(self, tasks):
         previouslySelectedTasks = self._view.getSelectedTasks()
@@ -175,4 +175,4 @@ class TasksListController(QtCore.QObject):
             if text != task.text:
                 task.parseLine(text)
                 self._view.updateTask(task)
-                self.taskModified.emit(task)
+                self.taskModified.emit()

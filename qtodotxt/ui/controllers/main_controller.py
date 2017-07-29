@@ -189,7 +189,7 @@ class MainController(QtCore.QObject):
         self._file.tasks.append(task)
         self._onFileUpdated()
 
-    def _tasks_list_taskModified(self, task):
+    def _tasks_list_taskModified(self):
         self._onFileUpdated()
 
     def _tasks_list_taskArchived(self, task):
