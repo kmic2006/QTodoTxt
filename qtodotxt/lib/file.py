@@ -131,7 +131,7 @@ class File(object):
     def getAllContexts(self):
         contexts = dict()
         for task in self.tasks:
-            if not task.is_complete:
+            if not task.is_complete and not task.is_future:
                 for context in task.contexts:
                     if context in contexts:
                         contexts[context] += 1
@@ -149,42 +149,43 @@ class File(object):
                         'Overdue': 10}
 
         for task in self.tasks:
-            if DueTodayFilter('Today').isMatch(task):
-                if not ('Today' in dueRanges):
-                    dueRanges['Today'] = 1
-                else:
-                    dueRanges['Today'] += 1
+            if not task.is_future:
+                if DueTodayFilter('Today').isMatch(task):
+                    if not ('Today' in dueRanges):
+                        dueRanges['Today'] = 1
+                    else:
+                        dueRanges['Today'] += 1
 
-            if DueTomorrowFilter('Tomorrow').isMatch(task):
-                if not ('Tomorrow' in dueRanges):
-                    dueRanges['Tomorrow'] = 1
-                else:
-                    dueRanges['Tomorrow'] += 1
+                if DueTomorrowFilter('Tomorrow').isMatch(task):
+                    if not ('Tomorrow' in dueRanges):
+                        dueRanges['Tomorrow'] = 1
+                    else:
+                        dueRanges['Tomorrow'] += 1
 
-            if DueThisWeekFilter('This week').isMatch(task):
-                if not ('This week' in dueRanges):
-                    dueRanges['This week'] = 1
-                else:
-                    dueRanges['This week'] += 1
+                if DueThisWeekFilter('This week').isMatch(task):
+                    if not ('This week' in dueRanges):
+                        dueRanges['This week'] = 1
+                    else:
+                        dueRanges['This week'] += 1
 
-            if DueThisMonthFilter('This month').isMatch(task):
-                if not ('This month' in dueRanges):
-                    dueRanges['This month'] = 1
-                else:
-                    dueRanges['This month'] += 1
+                if DueThisMonthFilter('This month').isMatch(task):
+                    if not ('This month' in dueRanges):
+                        dueRanges['This month'] = 1
+                    else:
+                        dueRanges['This month'] += 1
 
-            if DueOverdueFilter('Overdue').isMatch(task):
-                if not ('Overdue' in dueRanges):
-                    dueRanges['Overdue'] = 1
-                else:
-                    dueRanges['Overdue'] += 1
+                if DueOverdueFilter('Overdue').isMatch(task):
+                    if not ('Overdue' in dueRanges):
+                        dueRanges['Overdue'] = 1
+                    else:
+                        dueRanges['Overdue'] += 1
 
         return dueRanges, rangeSorting
 
     def getAllProjects(self):
         projects = dict()
         for task in self.tasks:
-            if not task.is_complete:
+            if not task.is_complete and not task.is_future:
                 for project in task.projects:
                     if project in projects:
                         projects[project] += 1
@@ -201,17 +202,18 @@ class File(object):
                          'Due': 0})
         for task in self.tasks:
             if not task.is_complete:
-                counters['Pending'] += 1
-                nbProjects = len(task.projects)
-                nbContexts = len(task.contexts)
-                if nbProjects > 0:
-                    counters['Projects'] += 1
-                if nbContexts > 0:
-                    counters['Contexts'] += 1
-                if nbContexts == 0 and nbProjects == 0:
-                    counters['Uncategorized'] += 1
-                if task.due:
-                    counters['Due'] += 1
+                if not task.is_future:
+                    counters['Pending'] += 1
+                    nbProjects = len(task.projects)
+                    nbContexts = len(task.contexts)
+                    if nbProjects > 0:
+                        counters['Projects'] += 1
+                    if nbContexts > 0:
+                        counters['Contexts'] += 1
+                    if nbContexts == 0 and nbProjects == 0:
+                        counters['Uncategorized'] += 1
+                    if task.due:
+                        counters['Due'] += 1
             else:
                 counters['Complete'] += 1
         return counters
