@@ -131,12 +131,19 @@ class File(object):
     def getAllContexts(self):
         contexts = dict()
         for task in self.tasks:
-            if not task.is_complete and not task.is_future:
-                for context in task.contexts:
-                    if context in contexts:
-                        contexts[context] += 1
-                    else:
-                        contexts[context] = 1
+            if not task.is_complete:
+                if task.is_future:
+                    for context in task.contexts:
+                        if not context in contexts:
+                            # create empty entry so we see context exists
+                            contexts[context] = 0
+                else:
+                    for context in task.contexts:
+                        if context in contexts:
+                            contexts[context] += 1
+                        else:
+                            contexts[context] = 1
+
         return contexts
 
     def getAllDueRanges(self):
@@ -185,12 +192,18 @@ class File(object):
     def getAllProjects(self):
         projects = dict()
         for task in self.tasks:
-            if not task.is_complete and not task.is_future:
-                for project in task.projects:
-                    if project in projects:
-                        projects[project] += 1
-                    else:
-                        projects[project] = 1
+            if not task.is_complete:
+                if task.is_future:
+                    for project in task.projects:
+                        if not project in projects:
+                            # create empty entry so we see project exists
+                            projects[project] = 0
+                else:
+                    for project in task.projects:
+                        if project in projects:
+                            projects[project] += 1
+                        else:
+                            projects[project] = 1
         return projects
 
     def getTasksCounters(self):
