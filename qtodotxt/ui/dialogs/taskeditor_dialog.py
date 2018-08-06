@@ -24,6 +24,54 @@ class TaskEditorDialog(QtGui.QDialog):
         ('due:October', ''),
         ('due:November', ''),
         ('due:December', ''),
+        
+        ('t:today', ''),
+        ('t:1day', ''),
+        ('t:2days', ''),
+        ('t:3days', ''),
+        ('t:4days', ''),
+        ('t:5days', ''),
+        ('t:6days', ''),
+        ('t:7days', ''),
+        ('t:8days', ''),
+        ('t:9days', ''),
+        ('t:10days', ''),
+        ('t:11days', ''),
+        ('t:12days', ''),
+        ('t:13days', ''),
+        ('t:14days', ''),
+        ('t:15days', ''),
+        ('t:16days', ''),
+        ('t:17days', ''),
+        ('t:18days', ''),
+        ('t:19days', ''),
+        ('t:20days', ''),
+        
+        ('t:1week', ''),
+        ('t:2weeks', ''),
+        ('t:3weeks', ''),
+        ('t:4weeks', ''),
+        ('t:5weeks', ''),
+        ('t:6weeks', ''),
+        ('t:7weeks', ''),
+        ('t:8weeks', ''),
+        
+        ('t:1month', ''),
+        ('t:2months', ''),
+        ('t:3months', ''),
+        ('t:4months', ''),
+        ('t:5months', ''),
+        ('t:6months', ''),
+        ('t:7months', ''),
+        ('t:8months', ''),
+        ('t:9months', ''),
+        ('t:10months', ''),
+        ('t:11months', ''),
+        ('t:12months', ''),
+        
+        ('t:1year', ''),
+        ('t:2years', ''),
+        ('t:3years', ''),
 
         ('<br/>', '<br/>'),
         ('<b>', '<b>'),
@@ -74,6 +122,54 @@ class TaskEditorDialog(QtGui.QDialog):
         keys['due:October'] = 'due:' + self._endOfMonth(10)
         keys['due:November'] = 'due:' + self._endOfMonth(11)
         keys['due:December'] = 'due:' + self._endOfMonth(12)
+
+        keys['t:today'] = 't:' + today
+        keys['t:1day'] = 't:' + tomorrow
+        keys['t:2days'] = 't:' + (date.today() + timedelta(days=2)).strftime('%Y-%m-%d')
+        keys['t:3days'] = 't:' + (date.today() + timedelta(days=3)).strftime('%Y-%m-%d')
+        keys['t:4days'] = 't:' + (date.today() + timedelta(days=4)).strftime('%Y-%m-%d')
+        keys['t:5days'] = 't:' + (date.today() + timedelta(days=5)).strftime('%Y-%m-%d')
+        keys['t:6days'] = 't:' + (date.today() + timedelta(days=6)).strftime('%Y-%m-%d')
+        keys['t:7days'] = 't:' + (date.today() + timedelta(days=7)).strftime('%Y-%m-%d')
+        keys['t:8days'] = 't:' + (date.today() + timedelta(days=8)).strftime('%Y-%m-%d')
+        keys['t:9days'] = 't:' + (date.today() + timedelta(days=9)).strftime('%Y-%m-%d')
+        keys['t:10days'] = 't:' + (date.today() + timedelta(days=10)).strftime('%Y-%m-%d')
+        keys['t:11days'] = 't:' + (date.today() + timedelta(days=11)).strftime('%Y-%m-%d')
+        keys['t:12days'] = 't:' + (date.today() + timedelta(days=12)).strftime('%Y-%m-%d')
+        keys['t:13days'] = 't:' + (date.today() + timedelta(days=13)).strftime('%Y-%m-%d')
+        keys['t:14days'] = 't:' + (date.today() + timedelta(days=14)).strftime('%Y-%m-%d')
+        keys['t:15days'] = 't:' + (date.today() + timedelta(days=15)).strftime('%Y-%m-%d')
+        keys['t:16days'] = 't:' + (date.today() + timedelta(days=16)).strftime('%Y-%m-%d')
+        keys['t:17days'] = 't:' + (date.today() + timedelta(days=17)).strftime('%Y-%m-%d')
+        keys['t:18days'] = 't:' + (date.today() + timedelta(days=18)).strftime('%Y-%m-%d')
+        keys['t:19days'] = 't:' + (date.today() + timedelta(days=19)).strftime('%Y-%m-%d')
+        keys['t:20days'] = 't:' + (date.today() + timedelta(days=20)).strftime('%Y-%m-%d')
+
+        keys['t:1week'] = 't:' + (date.today() + timedelta(days=7)).strftime('%Y-%m-%d')
+        keys['t:2weeks'] = 't:' + (date.today() + timedelta(days=14)).strftime('%Y-%m-%d')
+        keys['t:3weeks'] = 't:' + (date.today() + timedelta(days=21)).strftime('%Y-%m-%d')
+        keys['t:4weeks'] = 't:' + (date.today() + timedelta(days=28)).strftime('%Y-%m-%d')
+        keys['t:5weeks'] = 't:' + (date.today() + timedelta(days=35)).strftime('%Y-%m-%d')
+        keys['t:6weeks'] = 't:' + (date.today() + timedelta(days=42)).strftime('%Y-%m-%d')
+        keys['t:7weeks'] = 't:' + (date.today() + timedelta(days=49)).strftime('%Y-%m-%d')
+        keys['t:8weeks'] = 't:' + (date.today() + timedelta(days=56)).strftime('%Y-%m-%d')
+
+        keys['t:1month'] = 't:' + (date.today() + timedelta(days=30)).strftime('%Y-%m-%d')
+        keys['t:2months'] = 't:' + (date.today() + timedelta(days=60)).strftime('%Y-%m-%d')
+        keys['t:3months'] = 't:' + (date.today() + timedelta(days=90)).strftime('%Y-%m-%d')
+        keys['t:4months'] = 't:' + (date.today() + timedelta(days=120)).strftime('%Y-%m-%d')
+        keys['t:5months'] = 't:' + (date.today() + timedelta(days=150)).strftime('%Y-%m-%d')
+        keys['t:6months'] = 't:' + (date.today() + timedelta(days=180)).strftime('%Y-%m-%d')
+        keys['t:7months'] = 't:' + (date.today() + timedelta(days=210)).strftime('%Y-%m-%d')
+        keys['t:8months'] = 't:' + (date.today() + timedelta(days=240)).strftime('%Y-%m-%d')
+        keys['t:9months'] = 't:' + (date.today() + timedelta(days=270)).strftime('%Y-%m-%d')
+        keys['t:10months'] = 't:' + (date.today() + timedelta(days=300)).strftime('%Y-%m-%d')
+        keys['t:11months'] = 't:' + (date.today() + timedelta(days=330)).strftime('%Y-%m-%d')
+        keys['t:12months'] = 't:' + (date.today() + timedelta(days=360)).strftime('%Y-%m-%d')
+
+        keys['t:1year'] = 't:' + (date.today() + timedelta(days=365)).strftime('%Y-%m-%d')
+        keys['t:2years'] = 't:' + (date.today() + timedelta(days=2*365)).strftime('%Y-%m-%d')
+        keys['t:3years'] = 't:' + (date.today() + timedelta(days=3*365)).strftime('%Y-%m-%d')
 
         return keys
 
