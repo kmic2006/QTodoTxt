@@ -23,7 +23,15 @@ class TaskEditorDialog(QtGui.QDialog):
         ('due:September', ''),
         ('due:October', ''),
         ('due:November', ''),
-        ('due:December', '')
+        ('due:December', ''),
+
+        ('<br/>', '<br/>'),
+        ('<b>', '<b>'),
+        ('</b>', '</b>'),
+        ('<i>', '<i>'),
+        ('</i>', '</i>'),
+        ('<s>', '<s>'),
+        ('</s>', '</s>')
     ])
 
     def __init__(self, values, parent=None):
