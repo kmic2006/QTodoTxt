@@ -92,10 +92,10 @@ class TaskEditorDialog(QtGui.QDialog):
         self.resize(500, 100)
 
     def textValue(self):
-        return self._edit.text()
+        return self._edit.toPlainText()
 
     def setTextValue(self, text):
-        self._edit.setText(text)
+        self._edit.setPlainText(text)
 
     def setLabelText(self, text):
         self._label.setText(text)

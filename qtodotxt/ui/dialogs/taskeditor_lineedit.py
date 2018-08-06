@@ -1,9 +1,10 @@
 from PySide import QtCore, QtGui
 
 
-class TaskEditorLineEdit(QtGui.QLineEdit):
+class TaskEditorLineEdit(QtGui.QTextEdit):
     def __init__(self, model, autocomplete_pairs, separator=' '):
         super(TaskEditorLineEdit, self).__init__()
+        self.acceptRichText = False
         self._separator = separator
         self._autocomplete_pairs = autocomplete_pairs
         self._completer = QtGui.QCompleter(model)
@@ -23,28 +24,32 @@ class TaskEditorLineEdit(QtGui.QLineEdit):
         This is the event handler for the QCompleter.activated(QString) signal,
         it is called when the user selects an item in the completer popup.
         """
-        currentText = self.text()
+        currentText = self.toPlainText()
+        textCursor = self.textCursor()
+
         completionPrefixSize = len(self._completer.completionPrefix())
-        textFirstPart = self.cursorPosition() - completionPrefixSize
+        textFirstPart = textCursor.position() - completionPrefixSize
         textLastPart = textFirstPart + completionPrefixSize
 
         if completion in self._autocomplete_pairs:
             completion = self.replaceAutocompleteKeys(completion)
 
         newtext = currentText[:textFirstPart] + completion + " " + currentText[textLastPart:]
-        newCursorPos = self.cursorPosition() + (len(completion) - completionPrefixSize) + 1
+        newCursorPos = textCursor.position() + (len(completion) - completionPrefixSize) + 1
 
-        self.setText(newtext)
-        self.setCursorPosition(newCursorPos)
+        self.setPlainText(newtext)
+        
+        textCursor.setPosition(newCursorPos)
+        self.setTextCursor(textCursor)
 
     def replaceAutocompleteKeys(self, completion):
         if completion in self._autocomplete_pairs.keys():
             return self._autocomplete_pairs[completion]
 
     def textUnderCursor(self):
-        text = self.text()
+        text = self.toPlainText()
         textUnderCursor = ''
-        i = self.cursorPosition() - 1
+        i = self.textCursor().position() - 1
         while i >= 0 and text[i] != self._separator:
             textUnderCursor = text[i] + textUnderCursor
             i -= 1
