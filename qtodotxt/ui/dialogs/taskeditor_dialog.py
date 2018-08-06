@@ -89,7 +89,6 @@ class TaskEditorDialog(QtGui.QDialog):
 
         vbox.addLayout(hbox)
         self.setLayout(vbox)
-        self.resize(500, 100)
 
     def textValue(self):
         return self._edit.toPlainText()

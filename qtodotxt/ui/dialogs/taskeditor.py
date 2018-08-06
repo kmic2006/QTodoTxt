@@ -52,7 +52,7 @@ class TaskEditor(object):
         dialog = TaskEditorDialog(uniqlist, self._parent_window)
         dialog.setWindowTitle(title)
         dialog.setLabelText('Task:')
-        dialog.resize(500, 100)
+        dialog.resize(600, 300)
         if task:
             dialog.setTextValue(task.text)
         dialog.setModal(True)
