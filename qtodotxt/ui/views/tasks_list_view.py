@@ -12,6 +12,7 @@ class TasksListView(QtGui.QListWidget):
         super(TasksListView, self).__init__(parent)
         self.setLayoutMode(self.LayoutMode.Batched)
         self.setAlternatingRowColors(True)
+        self.setVerticalScrollMode(self.ScrollPerPixel)
         self._task_htmlizer = TaskHtmlizer()
         self._initUI()
         self._oldSelected = []
