@@ -61,12 +61,25 @@ class TaskHtmlizer(object):
     def _htmlizeDueDate(self, due_date):
         date_now = date.today()
         tdelta = due_date - date_now
-        if tdelta.days > 7:
+
+        if tdelta.days > 30:
+            # more than a month
             return '<b>due:{}</b>'.format(due_date)
-        elif tdelta.days > 0:
-            return '<b><font color="orange">due:{}</font></b>'.format(due_date)
-        else:
-            return '<b><font style="color:red">due:{}</font></b>'.format(due_date)
+        elif tdelta.days > 7:
+            # more than a week, less than a month
+            return '<b><font style="background-color:dodgerblue">due:{}</font></b>'.format(due_date)
+        elif tdelta.days > 1:
+            # within one week, but not today or tomorrow
+            return '<b><font style="background-color:lime">due:{}</font></b>'.format(due_date)
+        elif tdelta.days == 1:
+            # tomorrow
+            return '<b><font style="background-color:yellow">due:{}</font></b>'.format(due_date)
+        elif tdelta.days == 0:
+            # today
+            return '<b><font style="background-color:orange">due:{}</font></b>'.format(due_date)
+        elif tdelta.days < 0:
+            # overdue
+            return '<b><font style="background-color:red">due:{}</font></b>'.format(due_date)
 
     def _htmlizeThresholdDate(self, threshold):
         date_now = date.today()
