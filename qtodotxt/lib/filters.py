@@ -175,7 +175,7 @@ class DueTomorrowFilter(BaseFilter):
 
 class DueThisWeekFilter(BaseFilter):
     """
-    Task list filter allowing only incomplete tasks that are due this week.
+    Task list filter allowing only incomplete tasks that are due this week, but NOT today or tomorrow
 
     """
     def __init__(self, dueRange):
@@ -187,7 +187,7 @@ class DueThisWeekFilter(BaseFilter):
         else:
             due_date = task.due
             today = datetime.today().date()
-            return today <= due_date <= today + timedelta((6 - today.weekday()) % 7)
+            return today + timedelta(days=1) < due_date <= today + timedelta((6 - today.weekday()) % 7)
 
     def __str__(self):
         return "DueThisWeekFilter(%s)" % self.text
@@ -195,7 +195,7 @@ class DueThisWeekFilter(BaseFilter):
 
 class DueThisMonthFilter(BaseFilter):
     """
-    Task list filter allowing only incomplete tasks that are due this month.
+    Task list filter allowing only incomplete tasks that are due this month, but NOT this week.
 
     """
     def __init__(self, dueRange):
@@ -211,7 +211,7 @@ class DueThisMonthFilter(BaseFilter):
                 last_day_of_month = today.replace(day=31)
             else:
                 last_day_of_month = today.replace(month=today.month + 1, day=1) - timedelta(days=1)
-            return today <= due_date <= last_day_of_month
+            return today + timedelta((6 - today.weekday()) % 7) < due_date <= last_day_of_month
 
     def __str__(self):
         return "DueThisMonthFilter(%s)" % self.text
